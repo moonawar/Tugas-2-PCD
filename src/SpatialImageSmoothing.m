@@ -1,4 +1,4 @@
-classdef SpatImageSmoothing
+classdef SpatialImageSmoothing
     methods(Static)
         function result = applyMeanFilter(image, filterSize)
             % Apply mean filter to the image

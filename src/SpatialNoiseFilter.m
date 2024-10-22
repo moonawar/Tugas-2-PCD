@@ -19,6 +19,17 @@ classdef SpatialNoiseFilter
             end
         end
 
+        function result = applyGaussianNoise(image, mean, variance)
+            % Apply Gaussian noise to the image
+            % image: input image
+            % mean: mean of the Gaussian noise
+            % variance: variance of the Gaussian noise
+            % result: image with Gaussian noise
+            [M, N] = size(image);
+            result = image + sqrt(variance) * randn(M, N) + mean;
+        end
+
+
         function result = applyMinFilter(image, filterSize)
             % Apply min filter to the image
             % image: input image
