@@ -1,10 +1,10 @@
-classdef FreqImageSmoothing
+classdef HighPassFilter
     methods(Static)
-        function result = applyILPF(image, D0)
-            % Apply ideal low-pass filter to the image
+        function result = applyIHPF(image, D0)
+            % Apply ideal high-pass filter to the image
             % image: input image
             % D0: cutoff frequency
-            % result: smoothed image
+            % result: sharpened image
             F = fft2(image);
             F = fftshift(F);
             [M, N] = size(F);
@@ -12,7 +12,7 @@ classdef FreqImageSmoothing
             for u = 1:M
                 for v = 1:N
                     D = sqrt((u - M/2)^2 + (v - N/2)^2);
-                    if D <= D0
+                    if D > D0
                         H(u, v) = 1;
                     end
                 end
@@ -22,11 +22,11 @@ classdef FreqImageSmoothing
             result = ifft2(G);
         end
 
-        function result = applyGLPF(image, D0)
-            % Apply Gaussian low-pass filter to the image
+        function result = applyGHPF(image, D0)
+            % Apply Gaussian high-pass filter to the image
             % image: input image
             % D0: cutoff frequency
-            % result: smoothed image
+            % result: sharpened image
             F = fft2(image);
             F = fftshift(F);
             [M, N] = size(F);
@@ -34,7 +34,7 @@ classdef FreqImageSmoothing
             for u = 1:M
                 for v = 1:N
                     D = sqrt((u - M/2)^2 + (v - N/2)^2);
-                    H(u, v) = exp(-(D^2) / (2 * D0^2));
+                    H(u, v) = 1 - exp(-(D^2) / (2 * D0^2));
                 end
             end
             G = H .* F;
@@ -42,11 +42,12 @@ classdef FreqImageSmoothing
             result = ifft2(G);
         end
 
-        function result = applyBLPF(image, D0)
-            % Apply Butterworth low-pass filter to the image
+        function result = applyBHPF(image, D0, n)
+            % Apply Butterworth high-pass filter to the image
             % image: input image
             % D0: cutoff frequency
-            % result: smoothed image
+            % n: order of the filter
+            % result: sharpened image
             F = fft2(image);
             F = fftshift(F);
             [M, N] = size(F);
@@ -54,7 +55,7 @@ classdef FreqImageSmoothing
             for u = 1:M
                 for v = 1:N
                     D = sqrt((u - M/2)^2 + (v - N/2)^2);
-                    H(u, v) = 1 / (1 + (D / D0)^2);
+                    H(u, v) = 1 / (1 + (D0 / D)^(2 * n));
                 end
             end
             G = H .* F;
