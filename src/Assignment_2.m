@@ -10,20 +10,31 @@ classdef Assignment_2 < matlab.apps.AppBase
         Line_2                         matlab.ui.control.Image
         Line_1                         matlab.ui.control.Image
         ImageSmoothingPanel            matlab.ui.container.Panel
-        ISRunButton                    matlab.ui.control.Button
         ISDomain                       matlab.ui.control.DropDown
+        ProcessingDomainDropDownLabel  matlab.ui.control.Label
+        ISRunButton                    matlab.ui.control.Button
         ISInputLabel                   matlab.ui.control.Label
         ISSelectFileButton             matlab.ui.control.Button
         ISSelectedImage                matlab.ui.control.Label
         ISInputImageLabel              matlab.ui.control.Label
         ISInputImage                   matlab.ui.control.Image
         ISSpatialResultsPanel          matlab.ui.container.Panel
+        ISKernelSize                   matlab.ui.control.NumericEditField
+        D0FreqOnlyLabel_3              matlab.ui.control.Label
+        ISFilterDropDown               matlab.ui.control.DropDown
+        FilterDropDownLabel            matlab.ui.control.Label
+        ISSigma                        matlab.ui.control.NumericEditField
+        D0FreqOnlyLabel_2              matlab.ui.control.Label
         ISSpatResultDesc               matlab.ui.control.Label
         ISSpatResMeanLabel             matlab.ui.control.Label
         ISSpatResMeanImage             matlab.ui.control.Image
         ISSpatResGaussLabel            matlab.ui.control.Label
         ISSpatResGaussImage            matlab.ui.control.Image
         ISFreqResultsPanel             matlab.ui.container.Panel
+        ISD0EditField                  matlab.ui.control.NumericEditField
+        D0FreqOnlyLabel                matlab.ui.control.Label
+        ISnBLPFEditField               matlab.ui.control.NumericEditField
+        nBLPFLabel                     matlab.ui.control.Label
         ISFreqResultDesc               matlab.ui.control.Label
         ISFreqILPFLabel                matlab.ui.control.Label
         ISFreqILPFImage                matlab.ui.control.Image
@@ -31,7 +42,6 @@ classdef Assignment_2 < matlab.apps.AppBase
         ISFreqGLPFImage                matlab.ui.control.Image
         ISFreqBLPFLabel                matlab.ui.control.Label
         ISFreqBLPFImage                matlab.ui.control.Image
-        ProcessingDomainDropDownLabel  matlab.ui.control.Label
         ConvolutionPanel               matlab.ui.container.Panel
         CRunButton                     matlab.ui.control.Button
         CInputLabel                    matlab.ui.control.Label
@@ -182,6 +192,7 @@ classdef Assignment_2 < matlab.apps.AppBase
             pickFile(app, app.ISSelectedImage, app.ISInputImage);
         end
 
+        % Button pushed function: ISRunButton
         function ISRunButtonPushed(app, event)
             image = app.ISInputImage.ImageSource;
             if isempty(image)
@@ -189,22 +200,66 @@ classdef Assignment_2 < matlab.apps.AppBase
                 return;
             end
 
-            image = imread(image);
+            [image, map] = imread(image);
 
             switch app.ISDomain.Value
                 case 'Spatial'
-                    resultMean = SpatialImageSmoothing.applyMeanFilter(image);
-                    resultGauss = SpatialImageSmoothing.applyGaussianFilter(image);
+                    n = app.ISKernelSize.Value;
+                    if (mod(n, 2) == 0)
+                        error('Kernel size n must be an odd integer.');
+                    end
+                    sigma = app.ISSigma.Value;
+
+                    resultMean = SpatialImageSmoothing.applyMeanFilter(image, n);
+                    resultGauss = SpatialImageSmoothing.applyGaussianFilter(image, n, sigma);
                     app.ISSpatResMeanImage.ImageSource = resultMean;
                     app.ISSpatResGaussImage.ImageSource = resultGauss;
                 case 'Frequency'
-                    resultILPF = FreqImageSmoothing.applyILPF(image, 50);
-                    resultGLPF = FreqImageSmoothing.applyGLPF(image, 50);
-                    resultBLPF = FreqImageSmoothing.applyBLPF(image, 50);
+                    d0 = app.ISD0EditField.Value;
+                    n = app.ISnBLPFEditField.Value;
+
+                    resultILPF = FreqImageSmoothing.applyILPF(image, d0);
                     app.ISFreqILPFImage.ImageSource = resultILPF;
+                    resultGLPF = FreqImageSmoothing.applyGLPF(image, d0);
                     app.ISFreqGLPFImage.ImageSource = resultGLPF;
+                    resultBLPF = FreqImageSmoothing.applyBLPF(image, d0, n);
                     app.ISFreqBLPFImage.ImageSource = resultBLPF;
             end
+        end
+
+        % Button pushed function: CSelectFileButton
+        function CSelectFileButtonPushed(app, event)
+            app.CInputImage.ImageSource = '';
+            app.CResultImage.ImageSource = '';
+
+            pickFile(app, app.CSelectedImage, app.CInputImage);
+        end
+
+        % Button pushed function: HPSelectFileButton
+        function HPSelectFileButtonPushed(app, event)
+            app.HPInputImage.ImageSource = '';
+            app.HPFreqIHPFImage.ImageSource = '';
+            app.HPFreqGHPFImage.ImageSource = '';
+            app.HPFreqBHPFImage.ImageSource = '';
+
+            pickFile(app, app.HPSelectedImage, app.HPInputImage);
+        end
+
+        % Button pushed function: SNSelectFileButton
+        function SNSelectFileButtonPushed(app, event)
+            app.SNInputImage.ImageSource = '';
+            app.SNNoisedImage.ImageSource = '';
+            app.SNMinImage.ImageSource = '';
+            app.SNMaxImage.ImageSource = '';
+            app.SNMedianImage.ImageSource = '';
+            app.SNArithmeticImage.ImageSource = '';
+            app.SNGeometricImage.ImageSource = '';
+            app.SNHarmonicImage.ImageSource = '';
+            app.SNContraharmonicImage.ImageSource = '';
+            app.SNMidpointImage.ImageSource = '';
+            app.SNAlphaTrimmedImage.ImageSource = '';
+
+            pickFile(app, app.SNSelectedImage, app.SNInputImage);
         end
     end
 
@@ -223,7 +278,6 @@ classdef Assignment_2 < matlab.apps.AppBase
             app.Assignment_2_PCD_UIFigure.Color = [1 1 1];
             app.Assignment_2_PCD_UIFigure.Position = [0 0 1080 720];
             app.Assignment_2_PCD_UIFigure.Name = 'Assignment_2_PCD';
-            app.Assignment_2_PCD_UIFigure.Resize = 'off';
 
             % Create ConvolutionMenu
             app.ConvolutionMenu = uimenu(app.Assignment_2_PCD_UIFigure);
@@ -274,7 +328,6 @@ classdef Assignment_2 < matlab.apps.AppBase
             app.SpatialNoiseFilter.BorderType = 'none';
             app.SpatialNoiseFilter.BorderWidth = 0;
             app.SpatialNoiseFilter.Title = 'Spatial Noise Filter';
-            app.SpatialNoiseFilter.Visible = 'off';
             app.SpatialNoiseFilter.BackgroundColor = [1 1 1];
             app.SpatialNoiseFilter.FontWeight = 'bold';
             app.SpatialNoiseFilter.FontSize = 16;
@@ -416,6 +469,7 @@ classdef Assignment_2 < matlab.apps.AppBase
 
             % Create SNSelectFileButton
             app.SNSelectFileButton = uibutton(app.SpatialNoiseFilter, 'push');
+            app.SNSelectFileButton.ButtonPushedFcn = createCallbackFcn(app, @SNSelectFileButtonPushed, true);
             app.SNSelectFileButton.Position = [1 351 100 23];
             app.SNSelectFileButton.Text = 'Select File';
 
@@ -447,7 +501,6 @@ classdef Assignment_2 < matlab.apps.AppBase
             app.HighPassFilterPanel.BorderType = 'none';
             app.HighPassFilterPanel.BorderWidth = 0;
             app.HighPassFilterPanel.Title = 'High-Pass Filter';
-            app.HighPassFilterPanel.Visible = 'off';
             app.HighPassFilterPanel.BackgroundColor = [1 1 1];
             app.HighPassFilterPanel.FontName = 'Gloucester MT Extra Condensed';
             app.HighPassFilterPanel.FontWeight = 'bold';
@@ -520,6 +573,7 @@ classdef Assignment_2 < matlab.apps.AppBase
 
             % Create HPSelectFileButton
             app.HPSelectFileButton = uibutton(app.HighPassFilterPanel, 'push');
+            app.HPSelectFileButton.ButtonPushedFcn = createCallbackFcn(app, @HPSelectFileButtonPushed, true);
             app.HPSelectFileButton.Position = [1 373 100 23];
             app.HPSelectFileButton.Text = 'Select File';
 
@@ -575,6 +629,7 @@ classdef Assignment_2 < matlab.apps.AppBase
 
             % Create CSelectFileButton
             app.CSelectFileButton = uibutton(app.ConvolutionPanel, 'push');
+            app.CSelectFileButton.ButtonPushedFcn = createCallbackFcn(app, @CSelectFileButtonPushed, true);
             app.CSelectFileButton.Position = [1 390 100 23];
             app.CSelectFileButton.Text = 'Select File';
 
@@ -602,17 +657,10 @@ classdef Assignment_2 < matlab.apps.AppBase
             app.ImageSmoothingPanel.FontSize = 16;
             app.ImageSmoothingPanel.Position = [43 210 1013 478];
 
-            % Create ProcessingDomainDropDownLabel
-            app.ProcessingDomainDropDownLabel = uilabel(app.ImageSmoothingPanel);
-            app.ProcessingDomainDropDownLabel.HorizontalAlignment = 'right';
-            app.ProcessingDomainDropDownLabel.Position = [-4 409 109 22];
-            app.ProcessingDomainDropDownLabel.Text = 'Processing Domain';
-
             % Create ISFreqResultsPanel
             app.ISFreqResultsPanel = uipanel(app.ImageSmoothingPanel);
             app.ISFreqResultsPanel.BorderWidth = 0;
             app.ISFreqResultsPanel.Title = 'Results';
-            app.ISFreqResultsPanel.Visible = 'off';
             app.ISFreqResultsPanel.BackgroundColor = [1 1 1];
             app.ISFreqResultsPanel.FontWeight = 'bold';
             app.ISFreqResultsPanel.FontSize = 16;
@@ -656,6 +704,32 @@ classdef Assignment_2 < matlab.apps.AppBase
             app.ISFreqResultDesc.Position = [5 318 260 22];
             app.ISFreqResultDesc.Text = 'Image smoothing in frequency domain';
 
+            % Create nBLPFLabel
+            app.nBLPFLabel = uilabel(app.ISFreqResultsPanel);
+            app.nBLPFLabel.HorizontalAlignment = 'right';
+            app.nBLPFLabel.Position = [8 15 53 22];
+            app.nBLPFLabel.Text = 'n (BLPF)';
+
+            % Create ISnBLPFEditField
+            app.ISnBLPFEditField = uieditfield(app.ISFreqResultsPanel, 'numeric');
+            app.ISnBLPFEditField.Limits = [1 Inf];
+            app.ISnBLPFEditField.Placeholder = '2';
+            app.ISnBLPFEditField.Position = [76 15 54 22];
+            app.ISnBLPFEditField.Value = 2;
+
+            % Create D0FreqOnlyLabel
+            app.D0FreqOnlyLabel = uilabel(app.ISFreqResultsPanel);
+            app.D0FreqOnlyLabel.HorizontalAlignment = 'right';
+            app.D0FreqOnlyLabel.Position = [8 44 50 22];
+            app.D0FreqOnlyLabel.Text = 'D0';
+
+            % Create ISD0EditField
+            app.ISD0EditField = uieditfield(app.ISFreqResultsPanel, 'numeric');
+            app.ISD0EditField.Limits = [1 Inf];
+            app.ISD0EditField.Placeholder = '50';
+            app.ISD0EditField.Position = [76 44 54 22];
+            app.ISD0EditField.Value = 50;
+
             % Create ISSpatialResultsPanel
             app.ISSpatialResultsPanel = uipanel(app.ImageSmoothingPanel);
             app.ISSpatialResultsPanel.BorderWidth = 0;
@@ -667,18 +741,18 @@ classdef Assignment_2 < matlab.apps.AppBase
 
             % Create ISSpatResGaussImage
             app.ISSpatResGaussImage = uiimage(app.ISSpatialResultsPanel);
-            app.ISSpatResGaussImage.Position = [264 34 237 237];
+            app.ISSpatResGaussImage.Position = [215 98 171 173];
 
             % Create ISSpatResGaussLabel
             app.ISSpatResGaussLabel = uilabel(app.ISSpatialResultsPanel);
             app.ISSpatResGaussLabel.FontSize = 14;
             app.ISSpatResGaussLabel.FontWeight = 'bold';
-            app.ISSpatResGaussLabel.Position = [268 279 115 25];
+            app.ISSpatResGaussLabel.Position = [219 279 115 25];
             app.ISSpatResGaussLabel.Text = 'Gaussian Filter';
 
             % Create ISSpatResMeanImage
             app.ISSpatResMeanImage = uiimage(app.ISSpatialResultsPanel);
-            app.ISSpatResMeanImage.Position = [1 34 237 237];
+            app.ISSpatResMeanImage.Position = [1 98 173 173];
 
             % Create ISSpatResMeanLabel
             app.ISSpatResMeanLabel = uilabel(app.ISSpatialResultsPanel);
@@ -692,33 +766,84 @@ classdef Assignment_2 < matlab.apps.AppBase
             app.ISSpatResultDesc.Position = [5 318 260 22];
             app.ISSpatResultDesc.Text = 'Image smoothing in spatial domain';
 
+            % Create D0FreqOnlyLabel_2
+            app.D0FreqOnlyLabel_2 = uilabel(app.ISSpatialResultsPanel);
+            app.D0FreqOnlyLabel_2.HorizontalAlignment = 'right';
+            app.D0FreqOnlyLabel_2.Position = [242 54 39 22];
+            app.D0FreqOnlyLabel_2.Text = 'Sigma';
+
+            % Create ISSigma
+            app.ISSigma = uieditfield(app.ISSpatialResultsPanel, 'numeric');
+            app.ISSigma.Limits = [1 Inf];
+            app.ISSigma.Placeholder = '50';
+            app.ISSigma.Position = [299 54 54 22];
+            app.ISSigma.Value = 1;
+
+            % Create FilterDropDownLabel
+            app.FilterDropDownLabel = uilabel(app.ISSpatialResultsPanel);
+            app.FilterDropDownLabel.HorizontalAlignment = 'right';
+            app.FilterDropDownLabel.Position = [34 26 32 22];
+            app.FilterDropDownLabel.Text = 'Filter';
+
+            % Create ISFilterDropDown
+            app.ISFilterDropDown = uidropdown(app.ISSpatialResultsPanel);
+            app.ISFilterDropDown.Items = {'Mean', 'Gaussian'};
+            app.ISFilterDropDown.Position = [81 26 100 22];
+            app.ISFilterDropDown.Value = 'Mean';
+
+            % Create D0FreqOnlyLabel_3
+            app.D0FreqOnlyLabel_3 = uilabel(app.ISSpatialResultsPanel);
+            app.D0FreqOnlyLabel_3.HorizontalAlignment = 'right';
+            app.D0FreqOnlyLabel_3.Position = [1 54 66 22];
+            app.D0FreqOnlyLabel_3.Text = 'Kernel Size';
+
+            % Create ISKernelSize
+            app.ISKernelSize = uieditfield(app.ISSpatialResultsPanel, 'numeric');
+            app.ISKernelSize.Limits = [1 Inf];
+            app.ISKernelSize.Placeholder = '50';
+            app.ISKernelSize.Position = [85 54 54 22];
+            app.ISKernelSize.Value = 3;
+
             % Create ISInputImage
             app.ISInputImage = uiimage(app.ImageSmoothingPanel);
-            app.ISInputImage.Position = [5 69 237 237];
+            app.ISInputImage.Position = [6 143 162 162];
 
             % Create ISInputImageLabel
             app.ISInputImageLabel = uilabel(app.ImageSmoothingPanel);
             app.ISInputImageLabel.FontSize = 14;
             app.ISInputImageLabel.FontWeight = 'bold';
-            app.ISInputImageLabel.Position = [5 314 84 25];
+            app.ISInputImageLabel.Position = [6 313 84 25];
             app.ISInputImageLabel.Text = 'Input Image';
 
             % Create ISSelectedImage
             app.ISSelectedImage = uilabel(app.ImageSmoothingPanel);
             app.ISSelectedImage.FontAngle = 'italic';
-            app.ISSelectedImage.Position = [109 353 104 22];
+            app.ISSelectedImage.Position = [110 352 104 22];
             app.ISSelectedImage.Text = 'No image selected';
 
             % Create ISSelectFileButton
             app.ISSelectFileButton = uibutton(app.ImageSmoothingPanel, 'push');
             app.ISSelectFileButton.ButtonPushedFcn = createCallbackFcn(app, @ISSelectFileButtonPushed, true);
-            app.ISSelectFileButton.Position = [1 352 100 23];
+            app.ISSelectFileButton.Position = [2 351 100 23];
             app.ISSelectFileButton.Text = 'Select File';
 
             % Create ISInputLabel
             app.ISInputLabel = uilabel(app.ImageSmoothingPanel);
-            app.ISInputLabel.Position = [1 381 68 22];
+            app.ISInputLabel.Position = [2 380 68 22];
             app.ISInputLabel.Text = 'Input Image';
+
+            % Create ISRunButton
+            app.ISRunButton = uibutton(app.ImageSmoothingPanel, 'push');
+            app.ISRunButton.ButtonPushedFcn = createCallbackFcn(app, @ISRunButtonPushed, true);
+            app.ISRunButton.FontSize = 14;
+            app.ISRunButton.Position = [6 77 235 32];
+            app.ISRunButton.Text = 'Run';
+
+            % Create ProcessingDomainDropDownLabel
+            app.ProcessingDomainDropDownLabel = uilabel(app.ImageSmoothingPanel);
+            app.ProcessingDomainDropDownLabel.HorizontalAlignment = 'right';
+            app.ProcessingDomainDropDownLabel.Position = [-4 409 109 22];
+            app.ProcessingDomainDropDownLabel.Text = 'Processing Domain';
 
             % Create ISDomain
             app.ISDomain = uidropdown(app.ImageSmoothingPanel);
@@ -726,12 +851,6 @@ classdef Assignment_2 < matlab.apps.AppBase
             app.ISDomain.ValueChangedFcn = createCallbackFcn(app, @ISDomainValueChanged, true);
             app.ISDomain.Position = [120 409 100 22];
             app.ISDomain.Value = 'Spatial';
-
-            % Create ISRunButton
-            app.ISRunButton = uibutton(app.ImageSmoothingPanel, 'push');
-            app.ISRunButton.FontSize = 14;
-            app.ISRunButton.Position = [6 18 235 32];
-            app.ISRunButton.Text = 'Run';
 
             % Create Line_1
             app.Line_1 = uiimage(app.Assignment_2_PCD_UIFigure);
