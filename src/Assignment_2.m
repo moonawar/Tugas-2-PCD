@@ -9,63 +9,6 @@ classdef Assignment_2 < matlab.apps.AppBase
         SpatialNoiseFilterMenu         matlab.ui.container.Menu
         Line_2                         matlab.ui.control.Image
         Line_1                         matlab.ui.control.Image
-        ImageSmoothingPanel            matlab.ui.container.Panel
-        ISDomain                       matlab.ui.control.DropDown
-        ProcessingDomainDropDownLabel  matlab.ui.control.Label
-        ISRunButton                    matlab.ui.control.Button
-        ISInputLabel                   matlab.ui.control.Label
-        ISSelectFileButton             matlab.ui.control.Button
-        ISSelectedImage                matlab.ui.control.Label
-        ISInputImageLabel              matlab.ui.control.Label
-        ISInputImage                   matlab.ui.control.Image
-        ISSpatialResultsPanel          matlab.ui.container.Panel
-        ISKernelSize                   matlab.ui.control.NumericEditField
-        D0FreqOnlyLabel_3              matlab.ui.control.Label
-        ISFilterDropDown               matlab.ui.control.DropDown
-        FilterDropDownLabel            matlab.ui.control.Label
-        ISSigma                        matlab.ui.control.NumericEditField
-        D0FreqOnlyLabel_2              matlab.ui.control.Label
-        ISSpatResultDesc               matlab.ui.control.Label
-        ISSpatResMeanLabel             matlab.ui.control.Label
-        ISSpatResMeanImage             matlab.ui.control.Image
-        ISSpatResGaussLabel            matlab.ui.control.Label
-        ISSpatResGaussImage            matlab.ui.control.Image
-        ISFreqResultsPanel             matlab.ui.container.Panel
-        ISD0EditField                  matlab.ui.control.NumericEditField
-        D0FreqOnlyLabel                matlab.ui.control.Label
-        ISnBLPFEditField               matlab.ui.control.NumericEditField
-        nBLPFLabel                     matlab.ui.control.Label
-        ISFreqResultDesc               matlab.ui.control.Label
-        ISFreqILPFLabel                matlab.ui.control.Label
-        ISFreqILPFImage                matlab.ui.control.Image
-        ISFreqGLPFLabel                matlab.ui.control.Label
-        ISFreqGLPFImage                matlab.ui.control.Image
-        ISFreqBLPFLabel                matlab.ui.control.Label
-        ISFreqBLPFImage                matlab.ui.control.Image
-        ConvolutionPanel               matlab.ui.container.Panel
-        CRunButton                     matlab.ui.control.Button
-        CInputLabel                    matlab.ui.control.Label
-        CSelectFileButton              matlab.ui.control.Button
-        CSelectedImage                 matlab.ui.control.Label
-        CInputImageLabel               matlab.ui.control.Label
-        CInputImage                    matlab.ui.control.Image
-        CResultLabel                   matlab.ui.control.Label
-        CResultImage                   matlab.ui.control.Image
-        HighPassFilterPanel            matlab.ui.container.Panel
-        HPRunButton                    matlab.ui.control.Button
-        HPInputLabel                   matlab.ui.control.Label
-        HPSelectFileButton             matlab.ui.control.Button
-        HPSelectedImage                matlab.ui.control.Label
-        HPInputImageLabel              matlab.ui.control.Label
-        HPInputImage                   matlab.ui.control.Image
-        HPFreqResultsPanel             matlab.ui.container.Panel
-        HPResultDesc                   matlab.ui.control.Label
-        HPFreqIHPFLabel                matlab.ui.control.Label
-        HPFreqIHPFImage                matlab.ui.control.Image
-        HPFreqGHPFLabel                matlab.ui.control.Label
-        HPFreqGHPFImage                matlab.ui.control.Image
-        HPFreqBHPFLabel                matlab.ui.control.Label
-        HPFreqBHPFImage                matlab.ui.control.Image
         SpatialNoiseFilter             matlab.ui.container.Panel
         SNNoise                        matlab.ui.control.DropDown
         NoiseLabel                     matlab.ui.control.Label
@@ -76,6 +19,12 @@ classdef Assignment_2 < matlab.apps.AppBase
         SNInputImageLabel              matlab.ui.control.Label
         SNInputImage                   matlab.ui.control.Image
         SNResultsPanel                 matlab.ui.container.Panel
+        NoiseDensityEditField          matlab.ui.control.NumericEditField
+        NoiseDensityEditFieldLabel     matlab.ui.control.Label
+        QContraharmonicEditField       matlab.ui.control.NumericEditField
+        QContraharmonicEditFieldLabel  matlab.ui.control.Label
+        WindowSizenxnEditField         matlab.ui.control.NumericEditField
+        WindowSizenxnEditFieldLabel    matlab.ui.control.Label
         SNResultDesc                   matlab.ui.control.Label
         SNNoisedLabel                  matlab.ui.control.Label
         SNNoisedImage                  matlab.ui.control.Image
@@ -97,6 +46,65 @@ classdef Assignment_2 < matlab.apps.AppBase
         SNMidpointImage                matlab.ui.control.Image
         SNAlphaTrimmedLabel            matlab.ui.control.Label
         SNAlphaTrimmedImage            matlab.ui.control.Image
+        ConvolutionPanel               matlab.ui.container.Panel
+        CRunButton                     matlab.ui.control.Button
+        CInputLabel                    matlab.ui.control.Label
+        CSelectFileButton              matlab.ui.control.Button
+        CSelectedImage                 matlab.ui.control.Label
+        CInputImageLabel               matlab.ui.control.Label
+        CInputImage                    matlab.ui.control.Image
+        CResultLabel                   matlab.ui.control.Label
+        CResultImage                   matlab.ui.control.Image
+        ImageSmoothingPanel            matlab.ui.container.Panel
+        ISDomain                       matlab.ui.control.DropDown
+        ProcessingDomainDropDownLabel  matlab.ui.control.Label
+        ISRunButton                    matlab.ui.control.Button
+        ISInputLabel                   matlab.ui.control.Label
+        ISSelectFileButton             matlab.ui.control.Button
+        ISSelectedImage                matlab.ui.control.Label
+        ISInputImageLabel              matlab.ui.control.Label
+        ISInputImage                   matlab.ui.control.Image
+        ISFreqResultsPanel             matlab.ui.container.Panel
+        ISD0EditField                  matlab.ui.control.NumericEditField
+        D0FreqOnlyLabel                matlab.ui.control.Label
+        ISnBLPFEditField               matlab.ui.control.NumericEditField
+        nBLPFLabel                     matlab.ui.control.Label
+        ISFreqResultDesc               matlab.ui.control.Label
+        ISFreqILPFLabel                matlab.ui.control.Label
+        ISFreqILPFImage                matlab.ui.control.Image
+        ISFreqGLPFLabel                matlab.ui.control.Label
+        ISFreqGLPFImage                matlab.ui.control.Image
+        ISFreqBLPFLabel                matlab.ui.control.Label
+        ISFreqBLPFImage                matlab.ui.control.Image
+        ISSpatialResultsPanel          matlab.ui.container.Panel
+        ISKernelSize                   matlab.ui.control.NumericEditField
+        D0FreqOnlyLabel_3              matlab.ui.control.Label
+        ISSigma                        matlab.ui.control.NumericEditField
+        D0FreqOnlyLabel_2              matlab.ui.control.Label
+        ISSpatResultDesc               matlab.ui.control.Label
+        ISSpatResMeanLabel             matlab.ui.control.Label
+        ISSpatResMeanImage             matlab.ui.control.Image
+        ISSpatResGaussLabel            matlab.ui.control.Label
+        ISSpatResGaussImage            matlab.ui.control.Image
+        HighPassFilterPanel            matlab.ui.container.Panel
+        HPRunButton                    matlab.ui.control.Button
+        HPInputLabel                   matlab.ui.control.Label
+        HPSelectFileButton             matlab.ui.control.Button
+        HPSelectedImage                matlab.ui.control.Label
+        HPInputImageLabel              matlab.ui.control.Label
+        HPInputImage                   matlab.ui.control.Image
+        HPFreqResultsPanel             matlab.ui.container.Panel
+        HPD0EditField                  matlab.ui.control.NumericEditField
+        D0FreqOnlyLabel_4              matlab.ui.control.Label
+        HPnBHPFEditField               matlab.ui.control.NumericEditField
+        nBLPFLabel_2                   matlab.ui.control.Label
+        HPResultDesc                   matlab.ui.control.Label
+        HPFreqIHPFLabel                matlab.ui.control.Label
+        HPFreqIHPFImage                matlab.ui.control.Image
+        HPFreqGHPFLabel                matlab.ui.control.Label
+        HPFreqGHPFImage                matlab.ui.control.Image
+        HPFreqBHPFLabel                matlab.ui.control.Label
+        HPFreqBHPFImage                matlab.ui.control.Image
         Assignment                     matlab.ui.control.Label
         Louis                          matlab.ui.control.Label
         Addin                          matlab.ui.control.Label
@@ -261,6 +269,70 @@ classdef Assignment_2 < matlab.apps.AppBase
 
             pickFile(app, app.SNSelectedImage, app.SNInputImage);
         end
+
+        % Button pushed function: HPRunButton
+        function HPRunButtonPushed(app, event)
+            image = app.HPInputImage.ImageSource;
+            if isempty(image)
+                app.HPResultDesc.Text = 'No image selected';
+                return;
+            end
+
+            [image, map] = imread(image);
+            d0 = app.HPD0EditField.Value;
+            n = app.HPnBHPFEditField.Value;
+
+            resultIHPF = HighPassFilter.applyIHPF(image, d0);
+            app.HPFreqIHPFImage.ImageSource = resultIHPF;
+            resultGHPF = HighPassFilter.applyGHPF(image, d0);
+            app.HPFreqGHPFImage.ImageSource = resultGHPF;
+            resultBHPF = HighPassFilter.applyBHPF(image, d0, n);
+            app.HPFreqBHPFImage.ImageSource = resultBHPF;
+        end
+
+        % Value changed function: SNNoise
+        function SNNoiseValueChanged(app, event)
+            value = app.SNNoise.Value;
+
+            switch value
+                case 'Salt & Pepper'
+                    app.SNResultDesc.Text = 'Noise Filter on Image with Salt & Pepper Noise';
+                case 'Gaussian'
+                    app.SNResultDesc.Text = 'Noise Filter on Image with Gaussian Noise';
+            end
+        end
+
+        % Button pushed function: SNRunButton
+        function SNRunButtonPushed(app, event)
+            image = app.SNInputImage.ImageSource;
+            if isempty(image)
+                app.SNResultDesc.Text = 'No image selected';
+                return;
+            end
+
+            [image, map] = imread(image);
+            noiseDensity = app.NoiseDensityEditField.Value;
+            q = app.QContraharmonicEditField.Value;
+            n = app.WindowSizenxnEditField.Value;
+
+            switch app.SNNoise.Value
+                case 'Salt & Pepper'
+                    result = SpatialNoiseFilter.applySaltPepperFilter(image, noiseDensity, n);
+                case 'Gaussian'
+                    result = SpatialNoiseFilter.applyGaussianFilter(image, noiseDensity, n);
+            end
+
+            app.SNNoisedImage.ImageSource = result;
+            app.SNMinImage.ImageSource = SpatialNoiseFilter.applyMinFilter(result, n);
+            app.SNMaxImage.ImageSource = SpatialNoiseFilter.applyMaxFilter(result, n);
+            app.SNMedianImage.ImageSource = SpatialNoiseFilter.applyMedianFilter(result, n);
+            app.SNArithmeticImage.ImageSource = SpatialNoiseFilter.applyArithmeticMeanFilter(result, n);
+            app.SNGeometricImage.ImageSource = SpatialNoiseFilter.applyGeometricMeanFilter(result, n);
+            app.SNHarmonicImage.ImageSource = SpatialNoiseFilter.applyHarmonicMeanFilter(result, n);
+            app.SNContraharmonicImage.ImageSource = SpatialNoiseFilter.applyContraharmonicMeanFilter(result, n, q);
+            app.SNMidpointImage.ImageSource = SpatialNoiseFilter.applyMidpointFilter(result, n);
+            app.SNAlphaTrimmedImage.ImageSource = SpatialNoiseFilter.applyAlphaTrimmedFilter(result, n);
+        end
     end
 
     % Component initialization
@@ -320,6 +392,377 @@ classdef Assignment_2 < matlab.apps.AppBase
             app.Assignment.FontWeight = 'bold';
             app.Assignment.Position = [43 115 380 32];
             app.Assignment.Text = 'Assignment 2 Image Processing';
+
+            % Create HighPassFilterPanel
+            app.HighPassFilterPanel = uipanel(app.Assignment_2_PCD_UIFigure);
+            app.HighPassFilterPanel.BorderType = 'none';
+            app.HighPassFilterPanel.BorderWidth = 0;
+            app.HighPassFilterPanel.Title = 'High-Pass Filter';
+            app.HighPassFilterPanel.BackgroundColor = [1 1 1];
+            app.HighPassFilterPanel.FontName = 'Gloucester MT Extra Condensed';
+            app.HighPassFilterPanel.FontWeight = 'bold';
+            app.HighPassFilterPanel.FontSize = 16;
+            app.HighPassFilterPanel.Position = [43 210 1013 478];
+
+            % Create HPFreqResultsPanel
+            app.HPFreqResultsPanel = uipanel(app.HighPassFilterPanel);
+            app.HPFreqResultsPanel.BorderWidth = 0;
+            app.HPFreqResultsPanel.Title = 'Results';
+            app.HPFreqResultsPanel.BackgroundColor = [1 1 1];
+            app.HPFreqResultsPanel.FontWeight = 'bold';
+            app.HPFreqResultsPanel.FontSize = 16;
+            app.HPFreqResultsPanel.Position = [367 35 608 368];
+
+            % Create HPFreqBHPFImage
+            app.HPFreqBHPFImage = uiimage(app.HPFreqResultsPanel);
+            app.HPFreqBHPFImage.Position = [413 98 173 173];
+
+            % Create HPFreqBHPFLabel
+            app.HPFreqBHPFLabel = uilabel(app.HPFreqResultsPanel);
+            app.HPFreqBHPFLabel.FontSize = 14;
+            app.HPFreqBHPFLabel.FontWeight = 'bold';
+            app.HPFreqBHPFLabel.Position = [417 279 115 25];
+            app.HPFreqBHPFLabel.Text = 'BHPF Filter';
+
+            % Create HPFreqGHPFImage
+            app.HPFreqGHPFImage = uiimage(app.HPFreqResultsPanel);
+            app.HPFreqGHPFImage.Position = [210 99 173 173];
+
+            % Create HPFreqGHPFLabel
+            app.HPFreqGHPFLabel = uilabel(app.HPFreqResultsPanel);
+            app.HPFreqGHPFLabel.FontSize = 14;
+            app.HPFreqGHPFLabel.FontWeight = 'bold';
+            app.HPFreqGHPFLabel.Position = [214 280 115 25];
+            app.HPFreqGHPFLabel.Text = 'GHPF Filter';
+
+            % Create HPFreqIHPFImage
+            app.HPFreqIHPFImage = uiimage(app.HPFreqResultsPanel);
+            app.HPFreqIHPFImage.Position = [1 98 173 173];
+
+            % Create HPFreqIHPFLabel
+            app.HPFreqIHPFLabel = uilabel(app.HPFreqResultsPanel);
+            app.HPFreqIHPFLabel.FontSize = 14;
+            app.HPFreqIHPFLabel.FontWeight = 'bold';
+            app.HPFreqIHPFLabel.Position = [5 279 115 25];
+            app.HPFreqIHPFLabel.Text = 'IHPF Filter';
+
+            % Create HPResultDesc
+            app.HPResultDesc = uilabel(app.HPFreqResultsPanel);
+            app.HPResultDesc.Position = [5 318 260 22];
+            app.HPResultDesc.Text = 'Image smoothing in frequency domain';
+
+            % Create nBLPFLabel_2
+            app.nBLPFLabel_2 = uilabel(app.HPFreqResultsPanel);
+            app.nBLPFLabel_2.HorizontalAlignment = 'right';
+            app.nBLPFLabel_2.Position = [3 27 55 22];
+            app.nBLPFLabel_2.Text = 'n (BHPF)';
+
+            % Create HPnBHPFEditField
+            app.HPnBHPFEditField = uieditfield(app.HPFreqResultsPanel, 'numeric');
+            app.HPnBHPFEditField.Limits = [1 Inf];
+            app.HPnBHPFEditField.Placeholder = '2';
+            app.HPnBHPFEditField.Position = [73 27 54 22];
+            app.HPnBHPFEditField.Value = 2;
+
+            % Create D0FreqOnlyLabel_4
+            app.D0FreqOnlyLabel_4 = uilabel(app.HPFreqResultsPanel);
+            app.D0FreqOnlyLabel_4.HorizontalAlignment = 'right';
+            app.D0FreqOnlyLabel_4.Position = [5 56 50 22];
+            app.D0FreqOnlyLabel_4.Text = 'D0';
+
+            % Create HPD0EditField
+            app.HPD0EditField = uieditfield(app.HPFreqResultsPanel, 'numeric');
+            app.HPD0EditField.Limits = [1 Inf];
+            app.HPD0EditField.Placeholder = '50';
+            app.HPD0EditField.Position = [73 56 54 22];
+            app.HPD0EditField.Value = 50;
+
+            % Create HPInputImage
+            app.HPInputImage = uiimage(app.HighPassFilterPanel);
+            app.HPInputImage.Position = [5 89 237 237];
+
+            % Create HPInputImageLabel
+            app.HPInputImageLabel = uilabel(app.HighPassFilterPanel);
+            app.HPInputImageLabel.FontSize = 14;
+            app.HPInputImageLabel.FontWeight = 'bold';
+            app.HPInputImageLabel.Position = [5 335 84 25];
+            app.HPInputImageLabel.Text = 'Input Image';
+
+            % Create HPSelectedImage
+            app.HPSelectedImage = uilabel(app.HighPassFilterPanel);
+            app.HPSelectedImage.FontAngle = 'italic';
+            app.HPSelectedImage.Position = [109 374 104 22];
+            app.HPSelectedImage.Text = 'No image selected';
+
+            % Create HPSelectFileButton
+            app.HPSelectFileButton = uibutton(app.HighPassFilterPanel, 'push');
+            app.HPSelectFileButton.ButtonPushedFcn = createCallbackFcn(app, @HPSelectFileButtonPushed, true);
+            app.HPSelectFileButton.Position = [1 373 100 23];
+            app.HPSelectFileButton.Text = 'Select File';
+
+            % Create HPInputLabel
+            app.HPInputLabel = uilabel(app.HighPassFilterPanel);
+            app.HPInputLabel.Position = [1 403 68 22];
+            app.HPInputLabel.Text = 'Input Image';
+
+            % Create HPRunButton
+            app.HPRunButton = uibutton(app.HighPassFilterPanel, 'push');
+            app.HPRunButton.ButtonPushedFcn = createCallbackFcn(app, @HPRunButtonPushed, true);
+            app.HPRunButton.FontSize = 14;
+            app.HPRunButton.Position = [6 39 235 32];
+            app.HPRunButton.Text = 'Run';
+
+            % Create ImageSmoothingPanel
+            app.ImageSmoothingPanel = uipanel(app.Assignment_2_PCD_UIFigure);
+            app.ImageSmoothingPanel.BorderColor = [0 0 0];
+            app.ImageSmoothingPanel.HighlightColor = [0 0 0];
+            app.ImageSmoothingPanel.BorderType = 'none';
+            app.ImageSmoothingPanel.BorderWidth = 0;
+            app.ImageSmoothingPanel.Title = 'Image Smoothing';
+            app.ImageSmoothingPanel.BackgroundColor = [1 1 1];
+            app.ImageSmoothingPanel.FontName = 'Gloucester MT Extra Condensed';
+            app.ImageSmoothingPanel.FontWeight = 'bold';
+            app.ImageSmoothingPanel.FontSize = 16;
+            app.ImageSmoothingPanel.Position = [43 210 1013 478];
+
+            % Create ISSpatialResultsPanel
+            app.ISSpatialResultsPanel = uipanel(app.ImageSmoothingPanel);
+            app.ISSpatialResultsPanel.BorderWidth = 0;
+            app.ISSpatialResultsPanel.Title = 'Results';
+            app.ISSpatialResultsPanel.BackgroundColor = [1 1 1];
+            app.ISSpatialResultsPanel.FontWeight = 'bold';
+            app.ISSpatialResultsPanel.FontSize = 16;
+            app.ISSpatialResultsPanel.Position = [367 36 608 368];
+
+            % Create ISSpatResGaussImage
+            app.ISSpatResGaussImage = uiimage(app.ISSpatialResultsPanel);
+            app.ISSpatResGaussImage.Position = [215 98 171 173];
+
+            % Create ISSpatResGaussLabel
+            app.ISSpatResGaussLabel = uilabel(app.ISSpatialResultsPanel);
+            app.ISSpatResGaussLabel.FontSize = 14;
+            app.ISSpatResGaussLabel.FontWeight = 'bold';
+            app.ISSpatResGaussLabel.Position = [219 279 115 25];
+            app.ISSpatResGaussLabel.Text = 'Gaussian Filter';
+
+            % Create ISSpatResMeanImage
+            app.ISSpatResMeanImage = uiimage(app.ISSpatialResultsPanel);
+            app.ISSpatResMeanImage.Position = [1 98 173 173];
+
+            % Create ISSpatResMeanLabel
+            app.ISSpatResMeanLabel = uilabel(app.ISSpatialResultsPanel);
+            app.ISSpatResMeanLabel.FontSize = 14;
+            app.ISSpatResMeanLabel.FontWeight = 'bold';
+            app.ISSpatResMeanLabel.Position = [5 279 115 25];
+            app.ISSpatResMeanLabel.Text = 'Mean Filter';
+
+            % Create ISSpatResultDesc
+            app.ISSpatResultDesc = uilabel(app.ISSpatialResultsPanel);
+            app.ISSpatResultDesc.Position = [5 318 260 22];
+            app.ISSpatResultDesc.Text = 'Image smoothing in spatial domain';
+
+            % Create D0FreqOnlyLabel_2
+            app.D0FreqOnlyLabel_2 = uilabel(app.ISSpatialResultsPanel);
+            app.D0FreqOnlyLabel_2.HorizontalAlignment = 'right';
+            app.D0FreqOnlyLabel_2.Position = [242 54 39 22];
+            app.D0FreqOnlyLabel_2.Text = 'Sigma';
+
+            % Create ISSigma
+            app.ISSigma = uieditfield(app.ISSpatialResultsPanel, 'numeric');
+            app.ISSigma.Limits = [1 Inf];
+            app.ISSigma.Placeholder = '50';
+            app.ISSigma.Position = [299 54 54 22];
+            app.ISSigma.Value = 1;
+
+            % Create D0FreqOnlyLabel_3
+            app.D0FreqOnlyLabel_3 = uilabel(app.ISSpatialResultsPanel);
+            app.D0FreqOnlyLabel_3.HorizontalAlignment = 'right';
+            app.D0FreqOnlyLabel_3.Position = [1 54 66 22];
+            app.D0FreqOnlyLabel_3.Text = 'Kernel Size';
+
+            % Create ISKernelSize
+            app.ISKernelSize = uieditfield(app.ISSpatialResultsPanel, 'numeric');
+            app.ISKernelSize.Limits = [1 Inf];
+            app.ISKernelSize.Placeholder = '50';
+            app.ISKernelSize.Position = [85 54 54 22];
+            app.ISKernelSize.Value = 3;
+
+            % Create ISFreqResultsPanel
+            app.ISFreqResultsPanel = uipanel(app.ImageSmoothingPanel);
+            app.ISFreqResultsPanel.BorderWidth = 0;
+            app.ISFreqResultsPanel.Title = 'Results';
+            app.ISFreqResultsPanel.BackgroundColor = [1 1 1];
+            app.ISFreqResultsPanel.FontWeight = 'bold';
+            app.ISFreqResultsPanel.FontSize = 16;
+            app.ISFreqResultsPanel.Position = [367 35 608 368];
+
+            % Create ISFreqBLPFImage
+            app.ISFreqBLPFImage = uiimage(app.ISFreqResultsPanel);
+            app.ISFreqBLPFImage.Position = [413 98 173 173];
+
+            % Create ISFreqBLPFLabel
+            app.ISFreqBLPFLabel = uilabel(app.ISFreqResultsPanel);
+            app.ISFreqBLPFLabel.FontSize = 14;
+            app.ISFreqBLPFLabel.FontWeight = 'bold';
+            app.ISFreqBLPFLabel.Position = [417 279 115 25];
+            app.ISFreqBLPFLabel.Text = 'BLPF Filter';
+
+            % Create ISFreqGLPFImage
+            app.ISFreqGLPFImage = uiimage(app.ISFreqResultsPanel);
+            app.ISFreqGLPFImage.Position = [210 99 173 173];
+
+            % Create ISFreqGLPFLabel
+            app.ISFreqGLPFLabel = uilabel(app.ISFreqResultsPanel);
+            app.ISFreqGLPFLabel.FontSize = 14;
+            app.ISFreqGLPFLabel.FontWeight = 'bold';
+            app.ISFreqGLPFLabel.Position = [214 280 115 25];
+            app.ISFreqGLPFLabel.Text = 'GLPF Filter';
+
+            % Create ISFreqILPFImage
+            app.ISFreqILPFImage = uiimage(app.ISFreqResultsPanel);
+            app.ISFreqILPFImage.Position = [1 98 173 173];
+
+            % Create ISFreqILPFLabel
+            app.ISFreqILPFLabel = uilabel(app.ISFreqResultsPanel);
+            app.ISFreqILPFLabel.FontSize = 14;
+            app.ISFreqILPFLabel.FontWeight = 'bold';
+            app.ISFreqILPFLabel.Position = [5 279 115 25];
+            app.ISFreqILPFLabel.Text = 'ILPF Filter';
+
+            % Create ISFreqResultDesc
+            app.ISFreqResultDesc = uilabel(app.ISFreqResultsPanel);
+            app.ISFreqResultDesc.Position = [5 318 260 22];
+            app.ISFreqResultDesc.Text = 'Image smoothing in frequency domain';
+
+            % Create nBLPFLabel
+            app.nBLPFLabel = uilabel(app.ISFreqResultsPanel);
+            app.nBLPFLabel.HorizontalAlignment = 'right';
+            app.nBLPFLabel.Position = [8 15 53 22];
+            app.nBLPFLabel.Text = 'n (BLPF)';
+
+            % Create ISnBLPFEditField
+            app.ISnBLPFEditField = uieditfield(app.ISFreqResultsPanel, 'numeric');
+            app.ISnBLPFEditField.Limits = [1 Inf];
+            app.ISnBLPFEditField.Placeholder = '2';
+            app.ISnBLPFEditField.Position = [76 15 54 22];
+            app.ISnBLPFEditField.Value = 2;
+
+            % Create D0FreqOnlyLabel
+            app.D0FreqOnlyLabel = uilabel(app.ISFreqResultsPanel);
+            app.D0FreqOnlyLabel.HorizontalAlignment = 'right';
+            app.D0FreqOnlyLabel.Position = [8 44 50 22];
+            app.D0FreqOnlyLabel.Text = 'D0';
+
+            % Create ISD0EditField
+            app.ISD0EditField = uieditfield(app.ISFreqResultsPanel, 'numeric');
+            app.ISD0EditField.Limits = [1 Inf];
+            app.ISD0EditField.Placeholder = '50';
+            app.ISD0EditField.Position = [76 44 54 22];
+            app.ISD0EditField.Value = 50;
+
+            % Create ISInputImage
+            app.ISInputImage = uiimage(app.ImageSmoothingPanel);
+            app.ISInputImage.Position = [6 143 162 162];
+
+            % Create ISInputImageLabel
+            app.ISInputImageLabel = uilabel(app.ImageSmoothingPanel);
+            app.ISInputImageLabel.FontSize = 14;
+            app.ISInputImageLabel.FontWeight = 'bold';
+            app.ISInputImageLabel.Position = [6 313 84 25];
+            app.ISInputImageLabel.Text = 'Input Image';
+
+            % Create ISSelectedImage
+            app.ISSelectedImage = uilabel(app.ImageSmoothingPanel);
+            app.ISSelectedImage.FontAngle = 'italic';
+            app.ISSelectedImage.Position = [110 352 104 22];
+            app.ISSelectedImage.Text = 'No image selected';
+
+            % Create ISSelectFileButton
+            app.ISSelectFileButton = uibutton(app.ImageSmoothingPanel, 'push');
+            app.ISSelectFileButton.ButtonPushedFcn = createCallbackFcn(app, @ISSelectFileButtonPushed, true);
+            app.ISSelectFileButton.Position = [2 351 100 23];
+            app.ISSelectFileButton.Text = 'Select File';
+
+            % Create ISInputLabel
+            app.ISInputLabel = uilabel(app.ImageSmoothingPanel);
+            app.ISInputLabel.Position = [2 380 68 22];
+            app.ISInputLabel.Text = 'Input Image';
+
+            % Create ISRunButton
+            app.ISRunButton = uibutton(app.ImageSmoothingPanel, 'push');
+            app.ISRunButton.ButtonPushedFcn = createCallbackFcn(app, @ISRunButtonPushed, true);
+            app.ISRunButton.FontSize = 14;
+            app.ISRunButton.Position = [6 77 235 32];
+            app.ISRunButton.Text = 'Run';
+
+            % Create ProcessingDomainDropDownLabel
+            app.ProcessingDomainDropDownLabel = uilabel(app.ImageSmoothingPanel);
+            app.ProcessingDomainDropDownLabel.HorizontalAlignment = 'right';
+            app.ProcessingDomainDropDownLabel.Position = [-4 409 109 22];
+            app.ProcessingDomainDropDownLabel.Text = 'Processing Domain';
+
+            % Create ISDomain
+            app.ISDomain = uidropdown(app.ImageSmoothingPanel);
+            app.ISDomain.Items = {'Spatial', 'Frequency'};
+            app.ISDomain.ValueChangedFcn = createCallbackFcn(app, @ISDomainValueChanged, true);
+            app.ISDomain.Position = [120 409 100 22];
+            app.ISDomain.Value = 'Spatial';
+
+            % Create ConvolutionPanel
+            app.ConvolutionPanel = uipanel(app.Assignment_2_PCD_UIFigure);
+            app.ConvolutionPanel.BorderType = 'none';
+            app.ConvolutionPanel.BorderWidth = 0;
+            app.ConvolutionPanel.Title = 'Convolution';
+            app.ConvolutionPanel.BackgroundColor = [1 1 1];
+            app.ConvolutionPanel.FontName = 'Gloucester MT Extra Condensed';
+            app.ConvolutionPanel.FontWeight = 'bold';
+            app.ConvolutionPanel.FontSize = 16;
+            app.ConvolutionPanel.Position = [43 210 1013 478];
+
+            % Create CResultImage
+            app.CResultImage = uiimage(app.ConvolutionPanel);
+            app.CResultImage.Position = [363 49 346 346];
+
+            % Create CResultLabel
+            app.CResultLabel = uilabel(app.ConvolutionPanel);
+            app.CResultLabel.FontSize = 14;
+            app.CResultLabel.FontWeight = 'bold';
+            app.CResultLabel.Position = [363 409 133 25];
+            app.CResultLabel.Text = 'Convolution Result';
+
+            % Create CInputImage
+            app.CInputImage = uiimage(app.ConvolutionPanel);
+            app.CInputImage.Position = [6 106 237 237];
+
+            % Create CInputImageLabel
+            app.CInputImageLabel = uilabel(app.ConvolutionPanel);
+            app.CInputImageLabel.FontSize = 14;
+            app.CInputImageLabel.FontWeight = 'bold';
+            app.CInputImageLabel.Position = [5 352 84 25];
+            app.CInputImageLabel.Text = 'Input Image';
+
+            % Create CSelectedImage
+            app.CSelectedImage = uilabel(app.ConvolutionPanel);
+            app.CSelectedImage.FontAngle = 'italic';
+            app.CSelectedImage.Position = [109 391 104 22];
+            app.CSelectedImage.Text = 'No image selected';
+
+            % Create CSelectFileButton
+            app.CSelectFileButton = uibutton(app.ConvolutionPanel, 'push');
+            app.CSelectFileButton.ButtonPushedFcn = createCallbackFcn(app, @CSelectFileButtonPushed, true);
+            app.CSelectFileButton.Position = [1 390 100 23];
+            app.CSelectFileButton.Text = 'Select File';
+
+            % Create CInputLabel
+            app.CInputLabel = uilabel(app.ConvolutionPanel);
+            app.CInputLabel.Position = [1 419 68 22];
+            app.CInputLabel.Text = 'Input Image';
+
+            % Create CRunButton
+            app.CRunButton = uibutton(app.ConvolutionPanel, 'push');
+            app.CRunButton.FontSize = 14;
+            app.CRunButton.Position = [6 56 235 32];
+            app.CRunButton.Text = 'Run';
 
             % Create SpatialNoiseFilter
             app.SpatialNoiseFilter = uipanel(app.Assignment_2_PCD_UIFigure);
@@ -450,6 +893,36 @@ classdef Assignment_2 < matlab.apps.AppBase
             app.SNResultDesc.Position = [5 407 260 22];
             app.SNResultDesc.Text = 'Noise Filter with Salt & Pepper';
 
+            % Create WindowSizenxnEditFieldLabel
+            app.WindowSizenxnEditFieldLabel = uilabel(app.SNResultsPanel);
+            app.WindowSizenxnEditFieldLabel.HorizontalAlignment = 'right';
+            app.WindowSizenxnEditFieldLabel.Position = [401 41 112 22];
+            app.WindowSizenxnEditFieldLabel.Text = 'Window Size (n x n)';
+
+            % Create WindowSizenxnEditField
+            app.WindowSizenxnEditField = uieditfield(app.SNResultsPanel, 'numeric');
+            app.WindowSizenxnEditField.Position = [528 41 100 22];
+
+            % Create QContraharmonicEditFieldLabel
+            app.QContraharmonicEditFieldLabel = uilabel(app.SNResultsPanel);
+            app.QContraharmonicEditFieldLabel.HorizontalAlignment = 'right';
+            app.QContraharmonicEditFieldLabel.Position = [399 10 114 22];
+            app.QContraharmonicEditFieldLabel.Text = ' Q (Contraharmonic)';
+
+            % Create QContraharmonicEditField
+            app.QContraharmonicEditField = uieditfield(app.SNResultsPanel, 'numeric');
+            app.QContraharmonicEditField.Position = [528 10 100 22];
+
+            % Create NoiseDensityEditFieldLabel
+            app.NoiseDensityEditFieldLabel = uilabel(app.SNResultsPanel);
+            app.NoiseDensityEditFieldLabel.HorizontalAlignment = 'right';
+            app.NoiseDensityEditFieldLabel.Position = [1 38 79 22];
+            app.NoiseDensityEditFieldLabel.Text = 'Noise Density';
+
+            % Create NoiseDensityEditField
+            app.NoiseDensityEditField = uieditfield(app.SNResultsPanel, 'numeric');
+            app.NoiseDensityEditField.Position = [95 38 100 22];
+
             % Create SNInputImage
             app.SNInputImage = uiimage(app.SpatialNoiseFilter);
             app.SNInputImage.Position = [5 68 237 237];
@@ -480,6 +953,7 @@ classdef Assignment_2 < matlab.apps.AppBase
 
             % Create SNRunButton
             app.SNRunButton = uibutton(app.SpatialNoiseFilter, 'push');
+            app.SNRunButton.ButtonPushedFcn = createCallbackFcn(app, @SNRunButtonPushed, true);
             app.SNRunButton.FontSize = 14;
             app.SNRunButton.Position = [6 14 235 32];
             app.SNRunButton.Text = 'Run';
@@ -493,364 +967,9 @@ classdef Assignment_2 < matlab.apps.AppBase
             % Create SNNoise
             app.SNNoise = uidropdown(app.SpatialNoiseFilter);
             app.SNNoise.Items = {'Salt & Pepper', 'Gaussian'};
+            app.SNNoise.ValueChangedFcn = createCallbackFcn(app, @SNNoiseValueChanged, true);
             app.SNNoise.Position = [47 406 134 22];
             app.SNNoise.Value = 'Salt & Pepper';
-
-            % Create HighPassFilterPanel
-            app.HighPassFilterPanel = uipanel(app.Assignment_2_PCD_UIFigure);
-            app.HighPassFilterPanel.BorderType = 'none';
-            app.HighPassFilterPanel.BorderWidth = 0;
-            app.HighPassFilterPanel.Title = 'High-Pass Filter';
-            app.HighPassFilterPanel.BackgroundColor = [1 1 1];
-            app.HighPassFilterPanel.FontName = 'Gloucester MT Extra Condensed';
-            app.HighPassFilterPanel.FontWeight = 'bold';
-            app.HighPassFilterPanel.FontSize = 16;
-            app.HighPassFilterPanel.Position = [43 210 1013 478];
-
-            % Create HPFreqResultsPanel
-            app.HPFreqResultsPanel = uipanel(app.HighPassFilterPanel);
-            app.HPFreqResultsPanel.BorderWidth = 0;
-            app.HPFreqResultsPanel.Title = 'Results';
-            app.HPFreqResultsPanel.BackgroundColor = [1 1 1];
-            app.HPFreqResultsPanel.FontWeight = 'bold';
-            app.HPFreqResultsPanel.FontSize = 16;
-            app.HPFreqResultsPanel.Position = [367 35 608 368];
-
-            % Create HPFreqBHPFImage
-            app.HPFreqBHPFImage = uiimage(app.HPFreqResultsPanel);
-            app.HPFreqBHPFImage.Position = [413 98 173 173];
-
-            % Create HPFreqBHPFLabel
-            app.HPFreqBHPFLabel = uilabel(app.HPFreqResultsPanel);
-            app.HPFreqBHPFLabel.FontSize = 14;
-            app.HPFreqBHPFLabel.FontWeight = 'bold';
-            app.HPFreqBHPFLabel.Position = [417 279 115 25];
-            app.HPFreqBHPFLabel.Text = 'BHPF Filter';
-
-            % Create HPFreqGHPFImage
-            app.HPFreqGHPFImage = uiimage(app.HPFreqResultsPanel);
-            app.HPFreqGHPFImage.Position = [210 99 173 173];
-
-            % Create HPFreqGHPFLabel
-            app.HPFreqGHPFLabel = uilabel(app.HPFreqResultsPanel);
-            app.HPFreqGHPFLabel.FontSize = 14;
-            app.HPFreqGHPFLabel.FontWeight = 'bold';
-            app.HPFreqGHPFLabel.Position = [214 280 115 25];
-            app.HPFreqGHPFLabel.Text = 'GHPF Filter';
-
-            % Create HPFreqIHPFImage
-            app.HPFreqIHPFImage = uiimage(app.HPFreqResultsPanel);
-            app.HPFreqIHPFImage.Position = [1 98 173 173];
-
-            % Create HPFreqIHPFLabel
-            app.HPFreqIHPFLabel = uilabel(app.HPFreqResultsPanel);
-            app.HPFreqIHPFLabel.FontSize = 14;
-            app.HPFreqIHPFLabel.FontWeight = 'bold';
-            app.HPFreqIHPFLabel.Position = [5 279 115 25];
-            app.HPFreqIHPFLabel.Text = 'IHPF Filter';
-
-            % Create HPResultDesc
-            app.HPResultDesc = uilabel(app.HPFreqResultsPanel);
-            app.HPResultDesc.Position = [5 318 260 22];
-            app.HPResultDesc.Text = 'Image smoothing in frequency domain';
-
-            % Create HPInputImage
-            app.HPInputImage = uiimage(app.HighPassFilterPanel);
-            app.HPInputImage.Position = [5 89 237 237];
-
-            % Create HPInputImageLabel
-            app.HPInputImageLabel = uilabel(app.HighPassFilterPanel);
-            app.HPInputImageLabel.FontSize = 14;
-            app.HPInputImageLabel.FontWeight = 'bold';
-            app.HPInputImageLabel.Position = [5 335 84 25];
-            app.HPInputImageLabel.Text = 'Input Image';
-
-            % Create HPSelectedImage
-            app.HPSelectedImage = uilabel(app.HighPassFilterPanel);
-            app.HPSelectedImage.FontAngle = 'italic';
-            app.HPSelectedImage.Position = [109 374 104 22];
-            app.HPSelectedImage.Text = 'No image selected';
-
-            % Create HPSelectFileButton
-            app.HPSelectFileButton = uibutton(app.HighPassFilterPanel, 'push');
-            app.HPSelectFileButton.ButtonPushedFcn = createCallbackFcn(app, @HPSelectFileButtonPushed, true);
-            app.HPSelectFileButton.Position = [1 373 100 23];
-            app.HPSelectFileButton.Text = 'Select File';
-
-            % Create HPInputLabel
-            app.HPInputLabel = uilabel(app.HighPassFilterPanel);
-            app.HPInputLabel.Position = [1 403 68 22];
-            app.HPInputLabel.Text = 'Input Image';
-
-            % Create HPRunButton
-            app.HPRunButton = uibutton(app.HighPassFilterPanel, 'push');
-            app.HPRunButton.FontSize = 14;
-            app.HPRunButton.Position = [6 39 235 32];
-            app.HPRunButton.Text = 'Run';
-
-            % Create ConvolutionPanel
-            app.ConvolutionPanel = uipanel(app.Assignment_2_PCD_UIFigure);
-            app.ConvolutionPanel.BorderType = 'none';
-            app.ConvolutionPanel.BorderWidth = 0;
-            app.ConvolutionPanel.Title = 'Convolution';
-            app.ConvolutionPanel.BackgroundColor = [1 1 1];
-            app.ConvolutionPanel.FontName = 'Gloucester MT Extra Condensed';
-            app.ConvolutionPanel.FontWeight = 'bold';
-            app.ConvolutionPanel.FontSize = 16;
-            app.ConvolutionPanel.Position = [43 210 1013 478];
-
-            % Create CResultImage
-            app.CResultImage = uiimage(app.ConvolutionPanel);
-            app.CResultImage.Position = [363 49 346 346];
-
-            % Create CResultLabel
-            app.CResultLabel = uilabel(app.ConvolutionPanel);
-            app.CResultLabel.FontSize = 14;
-            app.CResultLabel.FontWeight = 'bold';
-            app.CResultLabel.Position = [363 409 133 25];
-            app.CResultLabel.Text = 'Convolution Result';
-
-            % Create CInputImage
-            app.CInputImage = uiimage(app.ConvolutionPanel);
-            app.CInputImage.Position = [6 106 237 237];
-
-            % Create CInputImageLabel
-            app.CInputImageLabel = uilabel(app.ConvolutionPanel);
-            app.CInputImageLabel.FontSize = 14;
-            app.CInputImageLabel.FontWeight = 'bold';
-            app.CInputImageLabel.Position = [5 352 84 25];
-            app.CInputImageLabel.Text = 'Input Image';
-
-            % Create CSelectedImage
-            app.CSelectedImage = uilabel(app.ConvolutionPanel);
-            app.CSelectedImage.FontAngle = 'italic';
-            app.CSelectedImage.Position = [109 391 104 22];
-            app.CSelectedImage.Text = 'No image selected';
-
-            % Create CSelectFileButton
-            app.CSelectFileButton = uibutton(app.ConvolutionPanel, 'push');
-            app.CSelectFileButton.ButtonPushedFcn = createCallbackFcn(app, @CSelectFileButtonPushed, true);
-            app.CSelectFileButton.Position = [1 390 100 23];
-            app.CSelectFileButton.Text = 'Select File';
-
-            % Create CInputLabel
-            app.CInputLabel = uilabel(app.ConvolutionPanel);
-            app.CInputLabel.Position = [1 419 68 22];
-            app.CInputLabel.Text = 'Input Image';
-
-            % Create CRunButton
-            app.CRunButton = uibutton(app.ConvolutionPanel, 'push');
-            app.CRunButton.FontSize = 14;
-            app.CRunButton.Position = [6 56 235 32];
-            app.CRunButton.Text = 'Run';
-
-            % Create ImageSmoothingPanel
-            app.ImageSmoothingPanel = uipanel(app.Assignment_2_PCD_UIFigure);
-            app.ImageSmoothingPanel.BorderColor = [0 0 0];
-            app.ImageSmoothingPanel.HighlightColor = [0 0 0];
-            app.ImageSmoothingPanel.BorderType = 'none';
-            app.ImageSmoothingPanel.BorderWidth = 0;
-            app.ImageSmoothingPanel.Title = 'Image Smoothing';
-            app.ImageSmoothingPanel.BackgroundColor = [1 1 1];
-            app.ImageSmoothingPanel.FontName = 'Gloucester MT Extra Condensed';
-            app.ImageSmoothingPanel.FontWeight = 'bold';
-            app.ImageSmoothingPanel.FontSize = 16;
-            app.ImageSmoothingPanel.Position = [43 210 1013 478];
-
-            % Create ISFreqResultsPanel
-            app.ISFreqResultsPanel = uipanel(app.ImageSmoothingPanel);
-            app.ISFreqResultsPanel.BorderWidth = 0;
-            app.ISFreqResultsPanel.Title = 'Results';
-            app.ISFreqResultsPanel.BackgroundColor = [1 1 1];
-            app.ISFreqResultsPanel.FontWeight = 'bold';
-            app.ISFreqResultsPanel.FontSize = 16;
-            app.ISFreqResultsPanel.Position = [367 35 608 368];
-
-            % Create ISFreqBLPFImage
-            app.ISFreqBLPFImage = uiimage(app.ISFreqResultsPanel);
-            app.ISFreqBLPFImage.Position = [413 98 173 173];
-
-            % Create ISFreqBLPFLabel
-            app.ISFreqBLPFLabel = uilabel(app.ISFreqResultsPanel);
-            app.ISFreqBLPFLabel.FontSize = 14;
-            app.ISFreqBLPFLabel.FontWeight = 'bold';
-            app.ISFreqBLPFLabel.Position = [417 279 115 25];
-            app.ISFreqBLPFLabel.Text = 'BLPF Filter';
-
-            % Create ISFreqGLPFImage
-            app.ISFreqGLPFImage = uiimage(app.ISFreqResultsPanel);
-            app.ISFreqGLPFImage.Position = [210 99 173 173];
-
-            % Create ISFreqGLPFLabel
-            app.ISFreqGLPFLabel = uilabel(app.ISFreqResultsPanel);
-            app.ISFreqGLPFLabel.FontSize = 14;
-            app.ISFreqGLPFLabel.FontWeight = 'bold';
-            app.ISFreqGLPFLabel.Position = [214 280 115 25];
-            app.ISFreqGLPFLabel.Text = 'GLPF Filter';
-
-            % Create ISFreqILPFImage
-            app.ISFreqILPFImage = uiimage(app.ISFreqResultsPanel);
-            app.ISFreqILPFImage.Position = [1 98 173 173];
-
-            % Create ISFreqILPFLabel
-            app.ISFreqILPFLabel = uilabel(app.ISFreqResultsPanel);
-            app.ISFreqILPFLabel.FontSize = 14;
-            app.ISFreqILPFLabel.FontWeight = 'bold';
-            app.ISFreqILPFLabel.Position = [5 279 115 25];
-            app.ISFreqILPFLabel.Text = 'ILPF Filter';
-
-            % Create ISFreqResultDesc
-            app.ISFreqResultDesc = uilabel(app.ISFreqResultsPanel);
-            app.ISFreqResultDesc.Position = [5 318 260 22];
-            app.ISFreqResultDesc.Text = 'Image smoothing in frequency domain';
-
-            % Create nBLPFLabel
-            app.nBLPFLabel = uilabel(app.ISFreqResultsPanel);
-            app.nBLPFLabel.HorizontalAlignment = 'right';
-            app.nBLPFLabel.Position = [8 15 53 22];
-            app.nBLPFLabel.Text = 'n (BLPF)';
-
-            % Create ISnBLPFEditField
-            app.ISnBLPFEditField = uieditfield(app.ISFreqResultsPanel, 'numeric');
-            app.ISnBLPFEditField.Limits = [1 Inf];
-            app.ISnBLPFEditField.Placeholder = '2';
-            app.ISnBLPFEditField.Position = [76 15 54 22];
-            app.ISnBLPFEditField.Value = 2;
-
-            % Create D0FreqOnlyLabel
-            app.D0FreqOnlyLabel = uilabel(app.ISFreqResultsPanel);
-            app.D0FreqOnlyLabel.HorizontalAlignment = 'right';
-            app.D0FreqOnlyLabel.Position = [8 44 50 22];
-            app.D0FreqOnlyLabel.Text = 'D0';
-
-            % Create ISD0EditField
-            app.ISD0EditField = uieditfield(app.ISFreqResultsPanel, 'numeric');
-            app.ISD0EditField.Limits = [1 Inf];
-            app.ISD0EditField.Placeholder = '50';
-            app.ISD0EditField.Position = [76 44 54 22];
-            app.ISD0EditField.Value = 50;
-
-            % Create ISSpatialResultsPanel
-            app.ISSpatialResultsPanel = uipanel(app.ImageSmoothingPanel);
-            app.ISSpatialResultsPanel.BorderWidth = 0;
-            app.ISSpatialResultsPanel.Title = 'Results';
-            app.ISSpatialResultsPanel.BackgroundColor = [1 1 1];
-            app.ISSpatialResultsPanel.FontWeight = 'bold';
-            app.ISSpatialResultsPanel.FontSize = 16;
-            app.ISSpatialResultsPanel.Position = [367 36 608 368];
-
-            % Create ISSpatResGaussImage
-            app.ISSpatResGaussImage = uiimage(app.ISSpatialResultsPanel);
-            app.ISSpatResGaussImage.Position = [215 98 171 173];
-
-            % Create ISSpatResGaussLabel
-            app.ISSpatResGaussLabel = uilabel(app.ISSpatialResultsPanel);
-            app.ISSpatResGaussLabel.FontSize = 14;
-            app.ISSpatResGaussLabel.FontWeight = 'bold';
-            app.ISSpatResGaussLabel.Position = [219 279 115 25];
-            app.ISSpatResGaussLabel.Text = 'Gaussian Filter';
-
-            % Create ISSpatResMeanImage
-            app.ISSpatResMeanImage = uiimage(app.ISSpatialResultsPanel);
-            app.ISSpatResMeanImage.Position = [1 98 173 173];
-
-            % Create ISSpatResMeanLabel
-            app.ISSpatResMeanLabel = uilabel(app.ISSpatialResultsPanel);
-            app.ISSpatResMeanLabel.FontSize = 14;
-            app.ISSpatResMeanLabel.FontWeight = 'bold';
-            app.ISSpatResMeanLabel.Position = [5 279 115 25];
-            app.ISSpatResMeanLabel.Text = 'Mean Filter';
-
-            % Create ISSpatResultDesc
-            app.ISSpatResultDesc = uilabel(app.ISSpatialResultsPanel);
-            app.ISSpatResultDesc.Position = [5 318 260 22];
-            app.ISSpatResultDesc.Text = 'Image smoothing in spatial domain';
-
-            % Create D0FreqOnlyLabel_2
-            app.D0FreqOnlyLabel_2 = uilabel(app.ISSpatialResultsPanel);
-            app.D0FreqOnlyLabel_2.HorizontalAlignment = 'right';
-            app.D0FreqOnlyLabel_2.Position = [242 54 39 22];
-            app.D0FreqOnlyLabel_2.Text = 'Sigma';
-
-            % Create ISSigma
-            app.ISSigma = uieditfield(app.ISSpatialResultsPanel, 'numeric');
-            app.ISSigma.Limits = [1 Inf];
-            app.ISSigma.Placeholder = '50';
-            app.ISSigma.Position = [299 54 54 22];
-            app.ISSigma.Value = 1;
-
-            % Create FilterDropDownLabel
-            app.FilterDropDownLabel = uilabel(app.ISSpatialResultsPanel);
-            app.FilterDropDownLabel.HorizontalAlignment = 'right';
-            app.FilterDropDownLabel.Position = [34 26 32 22];
-            app.FilterDropDownLabel.Text = 'Filter';
-
-            % Create ISFilterDropDown
-            app.ISFilterDropDown = uidropdown(app.ISSpatialResultsPanel);
-            app.ISFilterDropDown.Items = {'Mean', 'Gaussian'};
-            app.ISFilterDropDown.Position = [81 26 100 22];
-            app.ISFilterDropDown.Value = 'Mean';
-
-            % Create D0FreqOnlyLabel_3
-            app.D0FreqOnlyLabel_3 = uilabel(app.ISSpatialResultsPanel);
-            app.D0FreqOnlyLabel_3.HorizontalAlignment = 'right';
-            app.D0FreqOnlyLabel_3.Position = [1 54 66 22];
-            app.D0FreqOnlyLabel_3.Text = 'Kernel Size';
-
-            % Create ISKernelSize
-            app.ISKernelSize = uieditfield(app.ISSpatialResultsPanel, 'numeric');
-            app.ISKernelSize.Limits = [1 Inf];
-            app.ISKernelSize.Placeholder = '50';
-            app.ISKernelSize.Position = [85 54 54 22];
-            app.ISKernelSize.Value = 3;
-
-            % Create ISInputImage
-            app.ISInputImage = uiimage(app.ImageSmoothingPanel);
-            app.ISInputImage.Position = [6 143 162 162];
-
-            % Create ISInputImageLabel
-            app.ISInputImageLabel = uilabel(app.ImageSmoothingPanel);
-            app.ISInputImageLabel.FontSize = 14;
-            app.ISInputImageLabel.FontWeight = 'bold';
-            app.ISInputImageLabel.Position = [6 313 84 25];
-            app.ISInputImageLabel.Text = 'Input Image';
-
-            % Create ISSelectedImage
-            app.ISSelectedImage = uilabel(app.ImageSmoothingPanel);
-            app.ISSelectedImage.FontAngle = 'italic';
-            app.ISSelectedImage.Position = [110 352 104 22];
-            app.ISSelectedImage.Text = 'No image selected';
-
-            % Create ISSelectFileButton
-            app.ISSelectFileButton = uibutton(app.ImageSmoothingPanel, 'push');
-            app.ISSelectFileButton.ButtonPushedFcn = createCallbackFcn(app, @ISSelectFileButtonPushed, true);
-            app.ISSelectFileButton.Position = [2 351 100 23];
-            app.ISSelectFileButton.Text = 'Select File';
-
-            % Create ISInputLabel
-            app.ISInputLabel = uilabel(app.ImageSmoothingPanel);
-            app.ISInputLabel.Position = [2 380 68 22];
-            app.ISInputLabel.Text = 'Input Image';
-
-            % Create ISRunButton
-            app.ISRunButton = uibutton(app.ImageSmoothingPanel, 'push');
-            app.ISRunButton.ButtonPushedFcn = createCallbackFcn(app, @ISRunButtonPushed, true);
-            app.ISRunButton.FontSize = 14;
-            app.ISRunButton.Position = [6 77 235 32];
-            app.ISRunButton.Text = 'Run';
-
-            % Create ProcessingDomainDropDownLabel
-            app.ProcessingDomainDropDownLabel = uilabel(app.ImageSmoothingPanel);
-            app.ProcessingDomainDropDownLabel.HorizontalAlignment = 'right';
-            app.ProcessingDomainDropDownLabel.Position = [-4 409 109 22];
-            app.ProcessingDomainDropDownLabel.Text = 'Processing Domain';
-
-            % Create ISDomain
-            app.ISDomain = uidropdown(app.ImageSmoothingPanel);
-            app.ISDomain.Items = {'Spatial', 'Frequency'};
-            app.ISDomain.ValueChangedFcn = createCallbackFcn(app, @ISDomainValueChanged, true);
-            app.ISDomain.Position = [120 409 100 22];
-            app.ISDomain.Value = 'Spatial';
 
             % Create Line_1
             app.Line_1 = uiimage(app.Assignment_2_PCD_UIFigure);

@@ -1,13 +1,13 @@
 classdef FreqImageSmoothing
     methods(Static)
         function g = applyILPF(image, D0)
-            if size(image, 3) == 3
+            if size(image, 3) == 3 % Handle citra RGB
                 redChannel = FreqImageSmoothing.applyILPFSingleChannel(image(:, :, 1), D0);
                 greenChannel = FreqImageSmoothing.applyILPFSingleChannel(image(:, :, 2), D0);
                 blueChannel = FreqImageSmoothing.applyILPFSingleChannel(image(:, :, 3), D0);
 
                 g = cat(3, redChannel, greenChannel, blueChannel);
-            else
+            else % Handle citra grayscale
                 g = FreqImageSmoothing.applyILPFSingleChannel(image, D0);
                 g = cat(3, g, g, g);
             end
@@ -91,7 +91,7 @@ classdef FreqImageSmoothing
             F = fft2(fp);
             F = fftshift(F);
 
-            % Bagian 2 : Buat Ideal Low Pass Filter dalam Ranah Frekuensi
+            % Bagian 2 : Buat Gaussian Low Pass Filter dalam Ranah Frekuensi
             u = 0:(P-1);
             v = 0:(Q-1);
 
@@ -149,7 +149,7 @@ classdef FreqImageSmoothing
             F = fft2(fp);
             F = fftshift(F);
 
-            % Bagian 2 : Buat Ideal Low Pass Filter dalam Ranah Frekuensi
+            % Bagian 2 : Buat Butterworth Low Pass Filter dalam Ranah Frekuensi
             u = 0:(P-1);
             v = 0:(Q-1);
 
